@@ -36,14 +36,7 @@
         android:hint="There will be a date"
         android:textAppearance="?android:textAppearance" />
 
-        <Button
-            android:layout_below="@id/movie_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/addNewReserve"
-            android:onClick="addNewReserve"
-            android:gravity="center"
-            android:text="Foglalás"/>
+
 
 
     </RelativeLayout>

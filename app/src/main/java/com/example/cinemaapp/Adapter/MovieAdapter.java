@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         Picasso.get().load(movie.getImageUrl()).into(movieImageView);
 
 
+
+
         return convertView;
 
     }
+
+
+
 }

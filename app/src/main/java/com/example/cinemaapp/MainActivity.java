@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ListView movies;
     ArrayList<Movie> data;
     FirebaseFirestore db;
+
 
 
     @Override
@@ -82,6 +85,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        movies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, AddNewFoglalas.class);
+                TextView title = (TextView)view.findViewById(R.id.movie_title);
+                TextView date = (TextView)view.findViewById(R.id.movie_date);
+                intent.putExtra("title", title.getText().toString());
+                intent.putExtra("date", date.getText().toString());
+                startActivity(intent);
+            }
+        });
     }
 
     public void addNewReserve(View view) {
@@ -92,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("date", date.getText().toString());
         startActivity(intent);
     }
+
 }
