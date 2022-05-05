@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cinemaapp.Adapter.MovieAdapter;
@@ -22,6 +23,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.core.DocumentViewChangeSet;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ListView movies;
     ArrayList<Movie> data;
     FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void addNewReserve(View view) {
         Intent intent = new Intent(this, AddNewFoglalas.class);
+        TextView title = (TextView)findViewById(R.id.movie_title);
+        TextView date = (TextView)findViewById(R.id.movie_date);
+        intent.putExtra("title", title.getText().toString());
+        intent.putExtra("date", date.getText().toString());
         startActivity(intent);
     }
 }
