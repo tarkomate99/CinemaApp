@@ -27,24 +27,23 @@
         android:textAppearance="?android:textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/movie_room_id"
+        android:id="@+id/movie_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/movie_title"
         android:gravity="center"
         android:fontFamily="sans-serif"
-        android:hint="There will be room_id"
-        android:textAppearance="?android:textAppearance" />
-
-    <TextView
-        android:id="@+id/movie_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/movie_room_id"
-        android:gravity="center"
-        android:fontFamily="sans-serif"
         android:hint="There will be a date"
         android:textAppearance="?android:textAppearance" />
+
+        <Button
+            android:layout_below="@id/movie_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addNewReserve"
+            android:onClick="addNewReserve"
+            android:gravity="center"
+            android:text="Foglalás"/>
 
 
     </RelativeLayout>

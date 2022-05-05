@@ -3,8 +3,10 @@ package com.example.cinemaapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -76,5 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void addNewReserve(View view) {
+        Intent intent = new Intent(this, AddNewFoglalas.class);
+        startActivity(intent);
     }
 }

@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Egyetem/6.felev/CinemaApp/app/src/main/res/layout/activity_add_new_foglalas.xml" value="0.21784420289855072" />
+        <entry key="..\:/Egyetem/6.felev/CinemaApp/app/src/main/res/layout/activity_main.xml" value="0.21195652173913043" />
+        <entry key="..\:/Egyetem/6.felev/CinemaApp/app/src/main/res/layout/movie_item.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/Mate/AndroidStudioProjects/CinemaApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Mate/AndroidStudioProjects/CinemaApp/app/src/main/res/layout/movie_item.xml" value="0.17806484295845998" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.276268115942029" />
