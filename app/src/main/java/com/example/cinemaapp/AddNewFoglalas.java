@@ -22,6 +22,8 @@ import com.example.cinemaapp.Models.Reservation;
 import com.example.cinemaapp.Models.Seat;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +48,8 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
     SeatMapAdapter adapter;
 
+    private FirebaseUser user;
+
 
 
 
@@ -69,6 +73,16 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
         movieEditText.setText(getIntent().getStringExtra("title"));
         dateEditText.setText(getIntent().getStringExtra("date"));
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null){
+            Log.d(AddNewFoglalas.class.getName(), "Auth user!");
+        }else{
+            Log.d(AddNewFoglalas.class.getName(), "Unauth user!");
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
 
 
     }

@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CinemaApp">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddNewFoglalas"
             android:exported="false" />
         <activity
