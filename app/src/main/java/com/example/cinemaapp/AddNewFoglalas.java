@@ -2,7 +2,10 @@ package com.example.cinemaapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,11 +54,9 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
     private FirebaseUser user;
 
+    private static final String CHANNEL_ID = "cinema_notification_channel";
 
-
-
-
-
+    private NotificationManager mNotifyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,8 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
         dateEditText.setText(getIntent().getStringExtra("date"));
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        mNotifyManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         if(user != null){
             Log.d(AddNewFoglalas.class.getName(), "Auth user!");
@@ -123,8 +126,14 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
                 Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
                 Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
-                startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(AddNewFoglalas.this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_movie)
+                        .setContentTitle("Új foglalás")
+                        .setContentText("A jegyeket a kezdés előtt 30 percel előtt vegye át a jegyét!")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                mNotifyManager.notify(0, builder.build());
+                startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
