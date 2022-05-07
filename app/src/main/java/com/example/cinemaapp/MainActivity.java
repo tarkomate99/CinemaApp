@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -104,7 +107,27 @@ public class MainActivity extends AppCompatActivity {
                 TextView date = (TextView)view.findViewById(R.id.movie_date);
                 intent.putExtra("title", title.getText().toString());
                 intent.putExtra("date", date.getText().toString());
-                startActivity(intent);
+
+                ImageView image = (ImageView)view.findViewById(R.id.movieImage);
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.clockwise);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                image.startAnimation(animation);
             }
         });
     }
