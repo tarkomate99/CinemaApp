@@ -9,6 +9,14 @@
     tools:context=".ReservationsActivity">
 
 
+        <TextView
+            android:id="@+id/res_id"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            android:hint="Id"/>
 
         <TextView
             android:id="@+id/res_title"

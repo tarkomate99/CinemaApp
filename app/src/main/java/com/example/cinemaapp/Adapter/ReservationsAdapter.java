@@ -33,8 +33,10 @@ public class ReservationsAdapter extends ArrayAdapter<Reservation> {
         TextView titleTV = (TextView) convertView.findViewById(R.id.res_title);
         TextView placesTV = (TextView) convertView.findViewById(R.id.res_places);
         TextView dateTV = (TextView) convertView.findViewById(R.id.res_date);
+        TextView id = (TextView) convertView.findViewById(R.id.res_id);
         Reservation reservation = getItem(position);
 
+        id.setText(reservation._getId());
         titleTV.setText(reservation.getMovie());
         placesTV.setText(reservation.getPlaces());
         dateTV.setText(reservation.getDate());
