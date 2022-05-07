@@ -2,28 +2,31 @@
 
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
 
-    <ImageView
-        android:id="@+id/movieImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
+        <ImageView
+            android:id="@+id/movieImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:layout_marginStart="100dp"/>
 
-    <TextView
+        <TextView
         android:id="@+id/movie_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/movieImage"
         android:gravity="center"
         android:fontFamily="sans-serif-medium"
-        android:hint="There will be a title"
+        android:hint="Title"
         android:textAppearance="?android:textAppearanceMedium" />
 
     <TextView
@@ -33,7 +36,7 @@
         android:layout_below="@+id/movie_title"
         android:gravity="center"
         android:fontFamily="sans-serif"
-        android:hint="There will be a date"
+        android:hint="Date"
         android:textAppearance="?android:textAppearance" />
 
 

@@ -56,7 +56,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
     private static final String CHANNEL_ID = "cinema_notification_channel";
 
-    private NotificationManager mNotifyManager;
+    private ReservationNotification handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mNotifyManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        handler = new ReservationNotification(this);
 
         if(user != null){
             Log.d(AddNewFoglalas.class.getName(), "Auth user!");
@@ -123,16 +123,12 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
         dbReservations.document(reservation.getId()).set(reservation).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                String movie = movieEditText.getText().toString();
                 Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
                 Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(AddNewFoglalas.this, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_movie)
-                        .setContentTitle("Új foglalás")
-                        .setContentText("A jegyeket a kezdés előtt 30 percel előtt vegye át a jegyét!")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                mNotifyManager.notify(0, builder.build());
+                handler.notificateForReservation(movie);
                 startActivity(intent);
             }
         }).addOnFailureListener(new OnFailureListener() {

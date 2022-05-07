@@ -40,6 +40,7 @@ public class ReservationsActivity extends AppCompatActivity {
 
     private CollectionReference mReservations;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
