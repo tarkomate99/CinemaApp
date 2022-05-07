@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText userPassword;
 
     private FirebaseAuth mAuth;
+
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.editTextPassword);
 
         mAuth = FirebaseAuth.getInstance();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null){
+            Log.d(AddNewFoglalas.class.getName(), "Auth user!");
+            finish();
+        }
+
     }
 
     public void login(View view) {
@@ -62,5 +73,12 @@ public class LoginActivity extends AppCompatActivity {
     public void openMovieList(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void register(View view) {
+
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+
     }
 }

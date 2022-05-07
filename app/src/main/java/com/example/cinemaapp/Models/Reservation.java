@@ -6,15 +6,17 @@ public class Reservation {
     private String places;
     private String movie;
     private String date;
+    private String email;
 
     public Reservation(){}
 
-    public Reservation(String name, String places, String movie, String date){
+    public Reservation(String name, String places, String movie, String date, String email){
 
         this.name=name;
         this.places=places;
         this.movie=movie;
         this.date=date;
+        this.email=email;
 
     }
 
@@ -32,5 +34,9 @@ public class Reservation {
 
     public String getDate() {
         return date;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

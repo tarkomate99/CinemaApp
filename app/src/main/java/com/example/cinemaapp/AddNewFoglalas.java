@@ -106,7 +106,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
         CollectionReference dbReservations = db.collection("reservations");
 
-        Reservation reservation = new Reservation(nameEditText.getText().toString(), placesEditText.getText().toString(), movieEditText.getText().toString(), dateEditText.getText().toString());
+        Reservation reservation = new Reservation(nameEditText.getText().toString(), placesEditText.getText().toString(), movieEditText.getText().toString(), dateEditText.getText().toString(), user.getEmail());
 
         if(nameEditText.getText().toString().equals("")){
             Toast.makeText(AddNewFoglalas.this, "Töltsd ki a név mezőt!", Toast.LENGTH_SHORT).show();

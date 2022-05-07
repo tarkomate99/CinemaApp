@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText userPasswordAgEt;
 
     private FirebaseAuth auth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
         userPasswordAgEt = findViewById(R.id.editTextPasswordAgain);
 
         auth = FirebaseAuth.getInstance();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null){
+            Log.d(AddNewFoglalas.class.getName(), "Auth user!");
+            finish();
+        }
     }
 
     public void register(View view) {

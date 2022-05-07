@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    tools:context=".ReservationsActivity">
+
+
+
+        <TextView
+            android:id="@+id/res_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:hint="Film címe"/>
+
+        <TextView
+            android:id="@+id/res_places"
+            android:layout_marginStart="5dp"
+            android:layout_above="@+id/res_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:hint="Lefoglalt helyek"/>
+
+        <TextView
+            android:id="@+id/res_date"
+            android:layout_marginStart="0dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:hint="Vetítés"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:minWidth="0dp"
+            android:onClick="deleteReservation"
+            app:icon="@drawable/ic_delete"
+            app:iconPadding="0dp"/>
+
+
+
+
+
+</LinearLayout>

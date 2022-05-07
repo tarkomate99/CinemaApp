@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     MovieAdapter adapter;
 
-
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,11 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         loadDataInListView();
-        
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
         
         
     }
@@ -144,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(this, RegisterActivity.class);
                 startActivity(intent1);
                 return true;
+            case R.id.user_reservations:
+                Intent intent2 = new Intent(this, ReservationsActivity.class);
+                startActivity(intent2);
             default:
                 return super.onOptionsItemSelected(item);
 
