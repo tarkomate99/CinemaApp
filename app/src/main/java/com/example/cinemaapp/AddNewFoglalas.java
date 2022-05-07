@@ -33,6 +33,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -106,7 +107,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
         CollectionReference dbReservations = db.collection("reservations");
 
-        Reservation reservation = new Reservation(nameEditText.getText().toString(), placesEditText.getText().toString(), movieEditText.getText().toString(), dateEditText.getText().toString(), user.getEmail());
+        Reservation reservation = new Reservation(generateId(),nameEditText.getText().toString(), placesEditText.getText().toString(), movieEditText.getText().toString(), dateEditText.getText().toString(), user.getEmail());
 
         if(nameEditText.getText().toString().equals("")){
             Toast.makeText(AddNewFoglalas.this, "Töltsd ki a név mezőt!", Toast.LENGTH_SHORT).show();
@@ -116,11 +117,10 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             return;
         }
 
-        dbReservations
-                .add(reservation).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        dbReservations.document(reservation._getId()).set(reservation).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d("AddNewFoglalas", "Doc added with ID: "+documentReference.getId());
+            public void onSuccess(Void unused) {
+                Log.d("AddNewFoglalas", "Doc added with ID: "+reservation._getId());
                 Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -132,8 +132,21 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+    }
 
+    public String generateId(){
 
+        final String character = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        String autoId = "";
+
+        for (int i=0; i<20; i++){
+            autoId+= character.charAt(
+                    (int) Math.floor(Math.random() * character.length())
+            );
+        }
+
+        return autoId;
     }
 
     @Override

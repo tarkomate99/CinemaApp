@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TableRow;
@@ -15,6 +16,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,6 +34,8 @@ public class ReservationsActivity extends AppCompatActivity {
     ReservationsAdapter adapter;
 
     private FirebaseUser user;
+
+    private CollectionReference mReservations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +91,16 @@ public class ReservationsActivity extends AppCompatActivity {
 
     }
 
-    public void deleteReservation(View view) {
+    public void deleteReservation(Reservation reservation) {
 
-        
+        DocumentReference reference = mReservations.document(reservation._getId());
+
+        reference.delete().addOnSuccessListener(success -> {
+            Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_LONG).show();
+            finish();
+        }).addOnFailureListener(failure -> {
+            Toast.makeText(ReservationsActivity.this, "Sikertelen foglalás törlés!", Toast.LENGTH_LONG).show();
+        });
 
     }
 }
