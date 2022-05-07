@@ -22,7 +22,7 @@ public class Reservation {
 
     }
 
-    public String _getId(){
+    public String getId(){
         return id;
     }
 

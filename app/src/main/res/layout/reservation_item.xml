@@ -10,15 +10,6 @@
 
 
         <TextView
-            android:id="@+id/res_id"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/black"
-            android:visibility="visible"
-            android:hint="Id"/>
-
-        <TextView
             android:id="@+id/res_title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -28,7 +19,7 @@
 
         <TextView
             android:id="@+id/res_places"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="20dp"
             android:layout_above="@+id/res_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,17 +34,11 @@
             android:textColor="@color/black"
             android:hint="Vetítés"/>
 
-        <com.google.android.material.button.MaterialButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:minWidth="0dp"
-            android:onClick="deleteReservation"
-            app:icon="@drawable/ic_delete"
-            app:iconPadding="0dp"/>
-
-
-
-
+            android:layout_marginStart="20dp"
+            android:background="@color/red"
+            android:src="@drawable/ic_delete"/>
 
 </LinearLayout>

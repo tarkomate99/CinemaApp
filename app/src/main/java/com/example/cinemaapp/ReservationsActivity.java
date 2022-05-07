@@ -3,9 +3,12 @@ package com.example.cinemaapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -79,7 +82,7 @@ public class ReservationsActivity extends AppCompatActivity {
                             reservations.setAdapter(adapter);
 
                         }else{
-                            Toast.makeText(ReservationsActivity.this, "No data found...", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ReservationsActivity.this, "Nem található foglalás!", Toast.LENGTH_LONG).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -89,17 +92,26 @@ public class ReservationsActivity extends AppCompatActivity {
             }
         });
 
-    }
+        reservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-    public void deleteReservation(Reservation reservation) {
+                db.collection("reservations").document(data.get(i).getId()).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ReservationsActivity.this, MainActivity.class);
+                                startActivity(intent);
 
-        DocumentReference reference = mReservations.document(reservation._getId());
-
-        reference.delete().addOnSuccessListener(success -> {
-            Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_LONG).show();
-            finish();
-        }).addOnFailureListener(failure -> {
-            Toast.makeText(ReservationsActivity.this, "Sikertelen foglalás törlés!", Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ReservationsActivity.this, "Sikertelen foglalás törlés!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
 
     }
