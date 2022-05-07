@@ -15,7 +15,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@drawable/seat_not_selected"/>
+            android:src="@drawable/cinema_chair_not_selected"/>
 
         <TextView
             android:id="@+id/seatText"
