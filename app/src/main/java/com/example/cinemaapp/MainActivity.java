@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
+
     private void loadDataInListView() {
 
         db.collection("movies").get()

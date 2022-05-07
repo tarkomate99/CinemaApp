@@ -68,7 +68,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
         movieEditText = findViewById(R.id.movieTitle);
         dateEditText = findViewById(R.id.date);
 
-        seatIcon = R.drawable.seat_not_selected;
+        seatIcon = R.drawable.cinema_chair_not_selected;
         gridSeatMap = (GridView) findViewById(R.id.seatMapGrid);
 
         totalSeat(20);
@@ -96,7 +96,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
 
         for(int i=1; i<=n; i++){
-            seatArrayList.add(new Seat(R.drawable.seat_not_selected, "Seat "+i));
+            seatArrayList.add(new Seat(R.drawable.cinema_chair_not_selected, "Seat "+i));
         }
 
         adapter = new SeatMapAdapter(this, seatArrayList);
@@ -187,7 +187,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
     private void seatSelected(int position) {
 
         seatArrayList.remove(position);
-        seatArrayList.add(position, new Seat(R.drawable.seat_selected, "Selected"));
+        seatArrayList.add(position, new Seat(R.drawable.cinema_chair_selected, "Selected"));
         if(!placesEditText.getText().toString().equals("")){
             String places = placesEditText.getText().toString();
             places+=", "+String.valueOf(position);
