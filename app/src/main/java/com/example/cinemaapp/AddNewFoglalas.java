@@ -86,6 +86,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             Log.d(AddNewFoglalas.class.getName(), "Unauth user!");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
 
 
