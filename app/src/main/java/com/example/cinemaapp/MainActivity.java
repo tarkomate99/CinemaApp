@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.login:
                 Log.d("MainActivity", "Login clicked!");
                 Intent intent = new Intent(this, LoginActivity.class);
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 return true;
             case R.id.logout:
                 Log.d("MainActivity", "Logout clicked!");
@@ -177,13 +177,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.register:
                 Log.d("MainActivity", "Register clicked!");
                 Intent intent1 = new Intent(this, RegisterActivity.class);
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 startActivity(intent1);
+                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 return true;
             case R.id.user_reservations:
                 Intent intent2 = new Intent(this, ReservationsActivity.class);
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 startActivity(intent2);
+                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
             default:
                 return super.onOptionsItemSelected(item);
 

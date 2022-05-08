@@ -104,7 +104,7 @@ public class ReservationsActivity extends AppCompatActivity {
                                 Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ReservationsActivity.this, MainActivity.class);
                                 startActivity(intent);
-
+                                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override

@@ -127,9 +127,10 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
                 Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
                 Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                 handler.notificateForReservation(movie);
-                startActivity(intent);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
