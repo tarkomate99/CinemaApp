@@ -47,7 +47,18 @@ public class ReservationNotification {
                 .setContentIntent(pendingIntent);
 
         this.notificationManager.notify(0,builder.build());
+    }
 
+    public void payNotification(){
+        Intent intent = new Intent(context, ReservationsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setContentTitle("Cinema App")
+                .setContentText("Sikeres fizetés!")
+                .setSmallIcon(R.drawable.ic_movie)
+                .setContentIntent(pendingIntent);
+
+        this.notificationManager.notify(1,builder.build());
     }
 }

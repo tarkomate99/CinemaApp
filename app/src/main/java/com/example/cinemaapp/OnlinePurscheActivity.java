@@ -15,12 +15,16 @@ public class OnlinePurscheActivity extends AppCompatActivity {
 
     private TextView priceText;
 
+    private ReservationNotification handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_pursche);
 
         Bundle extras = getIntent().getExtras();
+
+        handler = new ReservationNotification(this);
 
         if(extras!=null){
             personCount = extras.getString("personCount");
@@ -38,5 +42,6 @@ public class OnlinePurscheActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+        handler.payNotification();
     }
 }
