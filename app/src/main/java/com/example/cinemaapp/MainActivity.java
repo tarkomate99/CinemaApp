@@ -76,34 +76,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadDataInListView() {
 
-        db.collection("movies").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(!queryDocumentSnapshots.isEmpty()){
+        new Thread(new Runnable() {
+            public void run() {
+                db.collection("movies").orderBy("title").get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if(!queryDocumentSnapshots.isEmpty()){
 
-                            List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments();
-                            for(DocumentSnapshot d : list){
+                                    List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments();
+                                    for(DocumentSnapshot d : list){
 
-                                Movie movie = d.toObject(Movie.class);
+                                        Movie movie = d.toObject(Movie.class);
 
-                                data.add(movie);
+                                        data.add(movie);
 
+                                    }
+                                    adapter = new MovieAdapter(MainActivity.this, data);
+
+                                    movies.setAdapter(adapter);
+
+                                }else{
+                                    Toast.makeText(MainActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            adapter = new MovieAdapter(MainActivity.this, data);
-
-                            movies.setAdapter(adapter);
-
-                        }else{
-                            Toast.makeText(MainActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
-                        }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
+                });
             }
-        });
+        }).start();
+
 
         movies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -143,20 +148,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_bar);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
+        MenuItem reservations = (MenuItem) menu.findItem(R.id.user_reservations);
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
-                return false;
-            }
-        });
+        if(user==null){
+            reservations.setVisible(false);
+        }else{
+            reservations.setVisible(true);
+        }
+
         return true;
     }
 
@@ -173,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 Log.d("MainActivity", "Logout clicked!");
                 FirebaseAuth.getInstance().signOut();
+                Intent intent3 = new Intent(this, MainActivity.class);
+                startActivity(intent3);
                 return true;
             case R.id.register:
                 Log.d("MainActivity", "Register clicked!");

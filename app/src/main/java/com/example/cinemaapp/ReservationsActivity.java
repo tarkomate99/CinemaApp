@@ -97,21 +97,27 @@ public class ReservationsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                db.collection("reservations").document(data.get(i).getId()).delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                new Thread(new Runnable() {
+                    public void run() {
+                        db.collection("reservations").document(data.get(i).getId()).delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ReservationsActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(ReservationsActivity.this, "Sikeres foglalás törlés!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ReservationsActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ReservationsActivity.this, "Sikertelen foglalás törlés!", Toast.LENGTH_SHORT).show();
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ReservationsActivity.this, "Sikertelen foglalás törlés!", Toast.LENGTH_SHORT).show();
+                        });
                     }
-                });
+                }).start();
+
+
             }
         });
 

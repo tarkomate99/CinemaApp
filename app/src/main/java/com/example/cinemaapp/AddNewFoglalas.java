@@ -121,26 +121,29 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             return;
         }
 
-        dbReservations.document(reservation.getId()).set(reservation).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                String movie = movieEditText.getText().toString();
-                Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
-                Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
-                handler.notificateForReservation(movie);
+        new Thread(new Runnable() {
+            public void run() {
+                dbReservations.document(reservation.getId()).set(reservation).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        String movie = movieEditText.getText().toString();
+                        Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
+                        Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                        handler.notificateForReservation(movie);
 
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("AddNewFoglalas", "Error adding document", e);
+                        Toast.makeText(AddNewFoglalas.this, "Foglalás rögzítése sikertelen!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("AddNewFoglalas", "Error adding document", e);
-                Toast.makeText(AddNewFoglalas.this, "Foglalás rögzítése sikertelen!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        }).start();
     }
 
     public String generateId(){
