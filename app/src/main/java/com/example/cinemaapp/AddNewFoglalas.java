@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.cinemaapp.Adapter.SeatMapAdapter;
@@ -58,6 +59,8 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
     private ReservationNotification handler;
 
+    public Integer personCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +92,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             finish();
         }
 
+        personCount=0;
 
     }
 
@@ -113,6 +117,9 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
 
         Reservation reservation = new Reservation(generateId(),nameEditText.getText().toString(), placesEditText.getText().toString(), movieEditText.getText().toString(), dateEditText.getText().toString(), user.getEmail());
 
+        RadioButton online = (RadioButton) findViewById(R.id.card_pursche);
+
+
         if(nameEditText.getText().toString().equals("")){
             Toast.makeText(AddNewFoglalas.this, "Töltsd ki a név mezőt!", Toast.LENGTH_SHORT).show();
             return;
@@ -120,6 +127,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
             Toast.makeText(AddNewFoglalas.this, "Foglalj le helyet!", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         new Thread(new Runnable() {
             public void run() {
@@ -129,11 +137,17 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
                         String movie = movieEditText.getText().toString();
                         Log.d("AddNewFoglalas", "Doc added with ID: "+reservation.getId());
                         Toast.makeText(AddNewFoglalas.this, "Sikeres foglalás!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddNewFoglalas.this, MainActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
                         handler.notificateForReservation(movie);
-
+                        if(online.isChecked()){
+                            Intent online_intent = new Intent(AddNewFoglalas.this, OnlinePurscheActivity.class);
+                            online_intent.putExtra("personCount", personCount.toString());
+                            startActivity(online_intent);
+                            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                        }else{
+                            Intent main_intent = new Intent(AddNewFoglalas.this, MainActivity.class);
+                            startActivity(main_intent);
+                            overridePendingTransition(R.anim.slide_out_bottom, R.anim.slide_in_bottom);
+                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -176,7 +190,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void seatDeselected(int position) {
-
+        personCount--;
         seatArrayList.remove(position);
         int i = position + 1;
         seatArrayList.add(position, new Seat(seatIcon, "Seat" +i));
@@ -190,7 +204,7 @@ public class AddNewFoglalas extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void seatSelected(int position) {
-
+        personCount++;
         seatArrayList.remove(position);
         seatArrayList.add(position, new Seat(R.drawable.cinema_chair_selected, "Selected"));
         if(!placesEditText.getText().toString().equals("")){
